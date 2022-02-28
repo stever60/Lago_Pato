@@ -1,0 +1,22 @@
+Station no:	Core no:	Section name	User ID
+C:\Data\BAS_sjro		PAT1G	sjr
+Year	Month	Day	Time
+2008	08	19	06
+Voltage	50	kV	
+Current	50	mA	
+Exposure time	200	ms	
+line camera signal level	180811	at 25 ms	
+Step size	200	microns	
+XRF	ON		
+XRF exp. time	10	seconds	
+Start coordinate	0.0	Stop coordinate	730.0
+XRF voltage and current	30	  	50
+Tube	Mo		
+Optical Start	0.0	Optical End	730.0
+Step size	0.188	microns	
+Start temperature		∞C	
+Start humidity		%	
+Start vacuum	-95	kPa	
+Stop temperature		∞C	
+Stop humidity		%	
+Stop vacuum	-94.8	kPa

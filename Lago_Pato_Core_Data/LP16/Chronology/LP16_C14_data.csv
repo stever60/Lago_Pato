@@ -1,0 +1,17 @@
+﻿Lab_ID,Core_ID_&_section_depth,Strat._Depth,Carbon_source:_pre-treatment,δ13C_IRMS,C14_absolute_pMC,C14_absolute_pMC_1σ,C14_age,C14_age,SH20_calibrated_age data_(cal_a_BP),SH20_calibrated_age data_(cal_a_BP),SH20_calibrated_age data_(cal_a_BP),SH20_calibrated_age data_(cal_a_BP),SH20_calibrated_age data_(cal_a_BP),Notes
+,cm,cm,,‰,% modern,,14C a,1σ,95.4%_max.,95.4%_min.,Mean,1σ,Median,
+BETA-480157,LP16-1C(SUR)_0-2,0–2,Plant material: a/a/a,-27.8,103.2,0.4,NA,NA,-6,-7,-6,1,-6,M
+BETA-480156,LP16-1C(SUR)_15-16,15–16,Organic-rich sediment: aw,-27.8,88.96,0.33,940,30,910,730,820,50,800,
+BETA-476093,LP16-1A: 0-1,28–29,Organic-rich sediment: aw,-28.2,70.13,0.26,2850,30,3060,2780,2920,60,2920,
+BETA-476099,LP16-1A: 8-9,36–37,Organic-rich sediment: aw,-29.7,48.4,0.18,5830,30,6730,6480,6590,50,"6,590",
+BETA-476094,LP16-1A: 22-23,50–51,Organic-rich sediment: aw,-28.7,30.65,0.11,9500,30,11070,10570,10720,110,"10,700",
+BETA-476095,LP16-1A: 38-39,66–67,Glaciogenic clay-rich sediment: aw,-31.4,29.38,0.11,9840,30,11260,11170,11220,20,"11,220",
+BETA-476100,LP16-2A: 20-21 M,74–74.5,Myriophyllum sp. aq. moss; a/a/a,-33,26.89,0.1,10550,30,12620,12470,12550,60,"12,550",P
+BETA-476101,LP16-2A: 20-21 B,74–74.5,Glaciogenic grey clay-rich sediment: aw,-27.1,26.79,0.13,10580,40,12690,12470,12560,70,"12,550",P
+BETA-476096,LP16-2A: 24-24.5_M,78–78.5,Myriophyllum sp. aq. moss layer; a/a/a,-36.3,25.36,0.09,11020,30,13070,12780,12900,60,"12,900",M
+BETA-480159,LP16-2A: 30-30.5_M,84–84.5,Plant root material (terrestrial); a/a/a,-27.5,37.68,0.14,7840,30,8690,8450,8570,50,"8,570",X-b
+BETA-480158,LP16-2A_46-M,100–100.5,Myriophyllum sp. aq. moss; a/a/a,-30.5,26.3,0.13,10730,40,12750,12620,12700,30,"12,710",M
+BETA-476102,LP16-2B: 22-23,114–115,Glaciogenic clay-rich sediment: aw,-25,11.96,0.07,17060,50,20780,20430,20580,90,"20,560",
+BETA-480160,LP16-3A_33,162–163,Glaciogenic clay-rich sediment: aw,-25.2,5.58,0.06,23180,80,27650,27250,27420,110,"27,400",
+BETA-476103,LP16-3B: 38-39,206.8–207.8,Glaciogenic clay-rich sediment: aw,-25.1,6.27,0.06,22250,80,26920,26120,26540,200,"26,480",
+BETA-476097,LP16-4B: 47-48,294.52–295.5,Glaciogenic clay-rich sediment: aw,-25.5,5.6,0.06,23150,90,27640,27230,27400,110,"27,370",
