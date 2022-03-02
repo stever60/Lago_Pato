@@ -35,7 +35,10 @@ GPS data were collected using Trimble differential GPS, accurate to 0.1 m with v
 
 Lake water chemistry (pH, conductivity, temperature, dissolved oxygen) were measured in and around Lago Pato and several nearby lakes with a YSI600 Sonde. Light penetration was measured with a Secchi disc and water samples were taken at one metre intervals in the water column of Lago Pato. Data from lakes in Patagonia was collected from a near shore sampling point. 
 
-Modelled annual and seasonal precipitation for 1979–2016 at Lago Pato was generated from the ERA-INTERIM dataset generated using the BAS internal portal http://basweb.nerc-bas.ac.uk/icd/toil/clivarm_data/index.html. 
+Modelled annual and seasonal precipitation for 1979–2016 at Lago Pato and other ERA-INTERIM maps and data were generated using a BAS internal portal to the Dee et al. (2011) dataset. BAS internal portal address: http://basweb.nerc-bas.ac.uk/icd/toil/clivarm_data/index.html. 
+
+Dee, D. P., Uppala, S. M., Simmons, A. J., Berrisford, P., Poli, P., Kobayashi, S., et al. (2011). The ERA-Interim Reanalysis: Configuration and Performance of the Data Assimilation System. Q.J.R. Meteorol. Soc. 137, 553–597. doi:10.1002/qj.828
+
 
 Instrumentation
 -	Trimble differential GPS 
