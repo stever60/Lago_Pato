@@ -1,16 +1,16 @@
 Base path:	Sample name:	Section name	User ID
-C:\Data\BAS_sjro\Oct_2017	LP	LP1C_XRF	sjd (mislabelled as 1B when run)
+C:\Data\BAS_sjro\Oct_2017	LP	LP1B_XRF		sjd (mislabelled as 1C when run)
 Year	Month	Day	Time
-2017	11	22	14
+2017	11	23	15
 Voltage	50	kV	
 Current	50	mA	
 Exposure time	200	ms	
-line camera signal level	113827	at 25 ms	
+line camera signal level	112507	at 25 ms	
 Step size	500	microns	
 XRF	ON		
 XRF exp. time	10	seconds	
-Start coordinate	30.0	Stop coordinate	430.0
+Start coordinate	13.0	Stop coordinate	371.0
 XRF voltage and current	30	  	50
 Tube	Mo		
-Optical Start	0.5	Optical End	859.5
+Optical Start	0.6	Optical End	409.6
 Step size	500	microns	
