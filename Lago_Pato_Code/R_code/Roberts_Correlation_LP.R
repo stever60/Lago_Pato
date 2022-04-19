@@ -25,7 +25,7 @@ library(RColorBrewer)
 # Set working directory ---------------------------------------------------
 
 #set working directory
-setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021")
+setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2022")
 #check working directory
 getwd()
 
@@ -214,7 +214,7 @@ ggsave("Output/Correlation/LP08_4cm/Fig 1B_Corr-den_matrix_key.pdf",
 theme_set(theme_bw(base_size=12))
 ggpairs(db1, columns = key_variables, upper = list(continuous = wrap("cor", size = 4)),
         lower = list(continuous = wrap("points", alpha = 0.5, size=1)),
-        ggplot2::aes(colour = Unit, title="Correlation plot by Unit", alpha = 0.5))
+        ggplot2::aes(colour = Unit, palette="Dark2", title="Correlation plot by Unit", alpha = 0.5))
 ggsave("Output/Correlation/LP08_4cm/Fig 1C_Corr-den-unit_matrix_key.pdf",
        height = c(30), width = c(30), dpi = 600, units = "cm")
 

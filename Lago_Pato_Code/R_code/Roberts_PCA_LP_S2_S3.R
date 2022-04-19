@@ -8,7 +8,7 @@ dev.off()
 # Set working directory ---------------------------------------------------
 
 #set working directory
-setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021")
+setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2022")
 #check working directory
 getwd()
 
@@ -123,12 +123,12 @@ cluster_col5 <-  c("#A50026","#F46D43","#FEE090","#ABD9E9","#4575B4")
 # Elements in LP08 PCA filtered as >0.5% mean and >0.1 max TSN% value and well defined signal (i.e., not noise)
 
 #Different elements
-elements_LP08 <- c("Si","S","K","Ca","Ti","Mn","Fe","Zn","Br","Rb","Sr","Zr","inc","coh","inc_coh", "coh_inc") #n=12 elements
+elements_LP08 <- c("Si","S","K","Ca","Ti","Mn","Fe","Zn","Br","Rb","Sr","Zr","Mo_inc","Mo_coh","inc_coh", "coh_inc") #n=12 elements
 
-elements_LP16 <- c("Si","S","K","Ca","Ti","V","Cr","Mn","Fe","Ni","Zn","As","Br","Rb","Sr","Zr","Ba","inc","coh","inc_coh","coh_inc") #n=17 elements
+elements_LP16 <- c("Si","S","K","Ca","Ti","V","Cr","Mn","Fe","Ni","Zn","As","Br","Rb","Sr","Zr","Ba","Mo_inc","Mo_coh","inc_coh","coh_inc") #n=17 elements
 
 #Combined match
-elements_LP08_16 <- c("Si","S","K","Ca","Ti","Mn","Fe","Zn","Br","Rb","Sr","Zr","inc","coh","inc_coh", "coh_inc") #n=12 elements as LP08
+elements_LP08_16 <- c("Si","S","K","Ca","Ti","Mn","Fe","Zn","Br","Rb","Sr","Zr","Mo_inc","Mo_coh","inc_coh", "coh_inc") #n=12 elements as LP08
 
 # Load period table data to create a list of element symbols in the $symb column 
 data("periodicTable")
@@ -139,9 +139,25 @@ data("periodicTable")
 # Import and select, filter data  ------------------------------------------------------------
 
 # Link to folder with datafiles in: https://www.dropbox.com/sh/u4d9jwujokw8qb0/AACyalT2Mpn4Pr6Daj_bqGR9a?dl=0
-# First, choose with interval dataset to import - i.1, 200um, 2mm or 1cm for each record
+# Choose dataset to import for each record
+
+# LP08 - choose cps data or %TSN (same as %cps_sum)
+PCA_db_LP08 <- read_csv("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Data/LP08_ITRAX_COMP_2mm_SH20.csv")
+PCA_db_LP08
+
+# OR
+
 PCA_db_LP08 <- read_csv("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Data/LP08_200um_TSN.csv")
 PCA_db_LP08
+
+
+
+# LP16 - choose cps data or %TSN (same as %cps_sum)
+
+PCA_db_LP16 <- read_csv("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Data/LP16_ITRAX_COMP_200um_SH20.csv")
+PCA_db_LP16
+
+# OR
 
 PCA_db_LP16 <- read_csv("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Data/LP16_200um_TSN.csv")
 PCA_db_LP16
@@ -203,9 +219,24 @@ kta <- PCA_df_LP16
 
 # Transform data ----------------------------------------------------------
 
+# check kta dataset to go forward for correlation and PCA analysis is OK
 head(kta)
-#plot(kta[, ME_n], pch=19, cex = 0.05)
 
+# Use centred log ratio (clr) (usually) - apply clr to elements in combined LP08 and LP16 match (can be cps or %TSN, %cps_sum)
+library(compositions)
+clr_elements_LP08_16 <- c("Si","S","K","Ca","Ti","Mn","Fe","Zn","Br","Rb","Sr","Zr","Mo_inc","Mo_coh") #n=10 elements
+kta.clr <- kta
+kta.clr[, clr_elements_LP08_16] <- clr(kta.clr[clr_elements_LP08_16])
+kta.clr
+# add inc_coh and coh_inc ratio data back in after clr elemental conversion
+
+
+write.csv(kta.clr,"/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Outputs/ITRAX/kta_clr.csv", row.names = TRUE)
+
+
+# Other transformations -------------------------------------------------
+
+# check data structure and which transformation produces the closest to normal distribution
 library(bestNormalize)
 kta.bc <- select(kta, Si:coh_inc) %>%
   replace(is.na(.), 0) %>% #convert NA to 0
@@ -256,7 +287,7 @@ kta.ln.Z[, ME_n] <- scale(kta.ln[ME_n], center = TRUE, scale = TRUE)
 kta.ln.Z
 #plot(kta.sqrt.Z[, ME_LP08], pch=19, cex = 0.05)
 
-#  Write transformed data to file --------------------------------------------------
+#  Write other transformed data to file --------------------------------------------------
 write.csv(kta.Z,"/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Outputs/ITRAX/kta_Z.csv", row.names = TRUE)
 write.csv(kta.sqrt,"/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Outputs/ITRAX/kta_sqrt.csv", row.names = TRUE)
 write.csv(kta.sqrt.Z,"/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Outputs/ITRAX/kta.sqrt.Z.csv", row.names = TRUE)
@@ -276,7 +307,7 @@ library(GGally)
 
 # Basic correlation matrix -------------------------------------------------------
 
-# Correlation plot - untransformed - all elements, density plots and correlation matrxi summary
+# Correlation plot - untransformed - all elements, density plots and correlation matrix summary
 theme_set(theme_bw(base_size=6))
 # use this to see where positive/significant correlations as an overview overall
 ggcorr(kta[, ME_n], method = c("everything", "pearson"), size = 4, label = TRUE, label_alpha = TRUE, label_round=2) 
@@ -286,6 +317,18 @@ ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/C
        height = c(30), width = c(30), dpi = 600, units = "cm")
 ## LP16 save
 ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr_matrix_untrans.pdf", 
+       height = c(30), width = c(30), dpi = 600, units = "cm")
+
+# Correlation plot - clr transformed
+theme_set(theme_bw(base_size=6))
+# use this to see where positive/significant correlations as an overview overall
+ggcorr(kta.clr[, clr_elements_LP08_16], method = c("everything", "pearson"), size = 4, label = TRUE, label_alpha = TRUE, label_round=2) 
+
+## LP08 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr_matrix_clr.pdf", 
+       height = c(30), width = c(30), dpi = 600, units = "cm")
+## LP16 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr_matrix_clr.pdf", 
        height = c(30), width = c(30), dpi = 600, units = "cm")
 
 
@@ -329,6 +372,18 @@ ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/C
 
 
 # Correlation density matrix plot on log-transformed data
+ggpairs(kta.ln, columns = clr_elements_LP08_16, upper = list(continuous = wrap("cor", size = 2)),
+        lower = list(continuous = wrap("points", alpha = 0.5, size=0.2)),
+        title="Correlation-density plot")
+## LP08 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr-den_matrix_clr.pdf", 
+       height = c(20), width = c(20), dpi = 600, units = "cm")
+## LP16 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den_matrix_clr.pdf", 
+       height = c(20), width = c(20), dpi = 600, units = "cm")
+
+
+# Correlation density matrix plot on log-transformed data
 ggpairs(kta.ln, columns = ME_n, upper = list(continuous = wrap("cor", size = 2)),
         lower = list(continuous = wrap("points", alpha = 0.5, size=0.2)),
         title="Correlation-density plot")
@@ -336,7 +391,7 @@ ggpairs(kta.ln, columns = ME_n, upper = list(continuous = wrap("cor", size = 2))
 ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr-den_matrix_ln_trans.pdf", 
        height = c(20), width = c(20), dpi = 600, units = "cm")
 ## LP16 save
-ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den_matrix__ln_trans.pdf", 
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den_matrix_ln_trans.pdf", 
        height = c(20), width = c(20), dpi = 600, units = "cm")
 
 # Correlation density matrix plot on sqrt-transformed data
@@ -370,9 +425,22 @@ ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/C
        height = c(20), width = c(20), dpi = 600, units = "cm")
 
 
+# Correlation density Unit plot - clr transformed
+theme_set(theme_bw(base_size=8))
+plot.matrix <- ggpairs(kta.clr, columns = clr_elements_LP08_16, upper = list(continuous = wrap("cor", size = 1)),
+                       lower = list(continuous = wrap("points", alpha = 1, size=0.5)),
+                       ggplot2::aes(colour = Group, title="Correlation plot by Group"))
+plot.matrix
+
+# LP08 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr-den-unit_matrix_clr.pdf",
+       height = c(20), width = c(20), dpi = 600, units = "cm")
+# LP16 save
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den-unit_matrix_clr.pdf",
+       height = c(20), width = c(20), dpi = 600, units = "cm")
+
+
 # Correlation density Unit plot - log transformed, scaled and centered data - scatterplot, density dist and stats for each unit
-# limit this to 5 x 5 matrix as text difficult to read 
-# and assign the matrix plot to a variable and then iterating through each plot with a for-loop
 theme_set(theme_bw(base_size=8))
 plot.matrix <- ggpairs(kta.ln, columns = ME_n, upper = list(continuous = wrap("cor", size = 1)),
                        lower = list(continuous = wrap("points", alpha = 1, size=0.5)),
@@ -380,14 +448,14 @@ plot.matrix <- ggpairs(kta.ln, columns = ME_n, upper = list(continuous = wrap("c
 plot.matrix
 
 # LP08 save
-ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr-den-unit_matrix_trans.pdf",
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP08/Corr-den-unit_matrix_ln_trans.pdf",
        height = c(20), width = c(20), dpi = 600, units = "cm")
 # LP16 save
-ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den-unit_matrix_trans.pdf",
+ggsave("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021/Figures/ITRAX/LP16/Corr-den-unit_matrix_ln_trans.pdf",
        height = c(20), width = c(20), dpi = 600, units = "cm")
 
 
-# new version from Nov 2021 update - need to chnage size of the density plot lines 
+# new version from Nov 2021 update - need to change size of the density plot lines 
 tmp.plot <- ggpairs(
   data = kta, 
   mapping = ggplot2::aes(colour = Eruption_ID, size = 0.5, labelSize = 5),
@@ -410,15 +478,10 @@ dev.off()
 
 # select dataset to take forward to PCA analysis
 
-# ln transformed, scaled and centered data
-pca.kta <- kta.ln.Z [ME_n]
-head(pca.kta)
-#plot(pca.kta, pch=19, cex = 0.05)
-
-# OR 
-
-# sqrt transformed scaled and centered data
-pca.kta <- kta.sqrt.Z [ME_n]
+# choose clr, ln or sqrt transformed dataset
+pca.kta <- kta.ln.Z [ME_n] 
+#pca.kta <- kta.clr [clr_elements_LP08_16]
+#pca.kta <- kta.sqrt.Z [ME_n]
 head(pca.kta)
 #plot(pca.kta, pch=19, cex = 0.05)
 

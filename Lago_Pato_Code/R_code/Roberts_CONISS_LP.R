@@ -23,7 +23,7 @@ library(tidypaleo)
 # Set working directory ---------------------------------------------------
 
 #set working directory
-setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2021")
+setwd("/Users/Steve/Dropbox/BAS/Data/R/Papers/Roberts_2022")
 #check working directory
 getwd()
 
