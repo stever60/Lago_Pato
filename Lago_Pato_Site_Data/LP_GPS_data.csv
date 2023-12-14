@@ -1,8 +1,0 @@
-﻿ID,Location_description,Latitude,Latitude±2std_dev,Longitude,Longitude±2std_dev,WGS84_Ellipsoidal_height,±2std_dev,Geoid_height,Uncorrected_elevation,Corrected_elevation,Google_Earth_altitude,Google_Earth_altitude_offset
-Unit,,decimal_degrees,,decimal_degrees,m,m,m,m,m a.s.l.,m a.s.l.,m a.s.l.,m
-LP1,NW Sill to Lago del Toro 1,51.29817,0.215,72.68198,0.288,51.397,0.398,13.02,38.377,37.854,41,3.15
-LP2,NW sill to Lago del Toro 2,51.29817,0.044,72.68198,0.097,51.508,0.145,13.02,38.488,37.965,41,3.04
-LP3,LP16 coring site,51.30315,0.059,72.68157,0.107,46.682,0.112,13.01,33.672,33.149,40,6.85
-LP4,S sill towards wetland,51.30465,0.067,72.67944,0.113,46.914,0.126,13,33.914,33.391,40,6.61
-LP5,NE edge of Lago Pato,51.29985,0.044,72.67763,0.136,49.497,0.21,13.01,36.487,32.686,43,10.31
-LP6,LP08 coring site,51.30033,,72.67860,,,,,,32.297,39,
